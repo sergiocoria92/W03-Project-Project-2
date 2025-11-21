@@ -20,19 +20,17 @@ function validateCar(data) {
     errors.push('price is required and must be a number');
   }
 
-  // ---- Reglas extra de "obviedad" ----
 
-  // year no puede ser negativo ni cero
+
+
   if (typeof data.year === 'number' && data.year <= 0) {
     errors.push('year must be greater than 0');
   }
 
-  // price no puede ser negativo
   if (typeof data.price === 'number' && data.price < 0) {
     errors.push('price cannot be negative');
   }
 
-  // mileage (si viene) debe ser número y no negativo
   if (data.mileage !== undefined) {
     if (typeof data.mileage !== 'number') {
       errors.push('mileage must be a number if provided');
@@ -41,7 +39,7 @@ function validateCar(data) {
     }
   }
 
-  // owners (si viene) debe ser número y no negativo
+
   if (data.owners !== undefined) {
     if (typeof data.owners !== 'number') {
       errors.push('owners must be a number if provided');
