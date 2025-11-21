@@ -1,7 +1,6 @@
 const { ObjectId } = require('mongodb');
 const { getDb } = require('../db/conn');
 
-
 function validateCar(data) {
   const errors = [];
 
@@ -21,9 +20,38 @@ function validateCar(data) {
     errors.push('price is required and must be a number');
   }
 
+  // ---- Reglas extra de "obviedad" ----
+
+  // year no puede ser negativo ni cero
+  if (typeof data.year === 'number' && data.year <= 0) {
+    errors.push('year must be greater than 0');
+  }
+
+  // price no puede ser negativo
+  if (typeof data.price === 'number' && data.price < 0) {
+    errors.push('price cannot be negative');
+  }
+
+  // mileage (si viene) debe ser número y no negativo
+  if (data.mileage !== undefined) {
+    if (typeof data.mileage !== 'number') {
+      errors.push('mileage must be a number if provided');
+    } else if (data.mileage < 0) {
+      errors.push('mileage cannot be negative');
+    }
+  }
+
+  // owners (si viene) debe ser número y no negativo
+  if (data.owners !== undefined) {
+    if (typeof data.owners !== 'number') {
+      errors.push('owners must be a number if provided');
+    } else if (data.owners < 0) {
+      errors.push('owners cannot be negative');
+    }
+  }
+
   return errors;
 }
-
 
 async function getAllCars(req, res) {
   try {
@@ -42,7 +70,6 @@ async function getCarById(req, res) {
   try {
     const id = req.params.id;
 
-
     if (!ObjectId.isValid(id)) {
       return res.status(400).json({ error: 'Invalid ID (not a valid ObjectId)' });
     }
@@ -53,7 +80,6 @@ async function getCarById(req, res) {
       .findOne({ _id: new ObjectId(id) });
 
     if (!car) {
-
       return res.status(404).json({ error: 'Car not found' });
     }
 
@@ -64,15 +90,12 @@ async function getCarById(req, res) {
   }
 }
 
-
 async function createCar(req, res) {
   try {
     const carData = req.body;
 
-
     const errors = validateCar(carData);
     if (errors.length > 0) {
-
       return res.status(400).json({ errors });
     }
 
@@ -88,7 +111,6 @@ async function createCar(req, res) {
     res.status(500).json({ error: 'Error creating car' });
   }
 }
-
 
 async function updateCar(req, res) {
   try {
@@ -120,7 +142,6 @@ async function updateCar(req, res) {
     res.status(500).json({ error: 'Error updating car' });
   }
 }
-
 
 async function deleteCar(req, res) {
   try {

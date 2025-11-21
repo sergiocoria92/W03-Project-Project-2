@@ -33,6 +33,23 @@ function validateMotorcycle(data) {
     errors.push('isUsed must be boolean if provided');
   }
 
+  // ---- Reglas extra de "obviedad" ----
+
+  // year no puede ser negativo ni cero
+  if (typeof data.year === 'number' && data.year <= 0) {
+    errors.push('year must be greater than 0');
+  }
+
+  // engineCC debe ser mayor a 0
+  if (typeof data.engineCC === 'number' && data.engineCC <= 0) {
+    errors.push('engineCC must be greater than 0');
+  }
+
+  // price no puede ser negativo
+  if (typeof data.price === 'number' && data.price < 0) {
+    errors.push('price cannot be negative');
+  }
+
   return errors;
 }
 
