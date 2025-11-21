@@ -1,0 +1,162 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Cars & Motorcycles API",
+    "version": "1.0.0",
+    "description": "Simple student Swagger for Cars and Motorcycles CRUD."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/cars": {
+      "get": {
+        "summary": "Get all cars",
+        "description": "Returns a list of cars.",
+        "responses": {
+          "200": { "description": "Cars returned successfully." },
+          "500": { "description": "Server error while getting cars." }
+        }
+      },
+      "post": {
+        "summary": "Create a new car",
+        "description": "Creates a new car in the database.",
+        "responses": {
+          "201": { "description": "Car created successfully." },
+          "400": { "description": "Invalid car data." },
+          "500": { "description": "Server error while creating car." }
+        }
+      }
+    },
+    "/cars/{id}": {
+      "get": {
+        "summary": "Get a car by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Car id (MongoDB ObjectId)."
+          }
+        ],
+        "responses": {
+          "200": { "description": "Car found." },
+          "400": { "description": "Invalid id format." },
+          "404": { "description": "Car not found." },
+          "500": { "description": "Server error while getting car." }
+        }
+      },
+      "put": {
+        "summary": "Update a car by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Car updated successfully." },
+          "400": { "description": "Invalid id or car data." },
+          "404": { "description": "Car not found." },
+          "500": { "description": "Server error while updating car." }
+        }
+      },
+      "delete": {
+        "summary": "Delete a car by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Car deleted." },
+          "400": { "description": "Invalid id." },
+          "404": { "description": "Car not found." },
+          "500": { "description": "Server error while deleting car." }
+        }
+      }
+    },
+
+    "/motorcycles": {
+      "get": {
+        "summary": "Get all motorcycles",
+        "description": "Returns a list of motorcycles.",
+        "responses": {
+          "200": { "description": "Motorcycles returned successfully." },
+          "500": { "description": "Server error while getting motorcycles." }
+        }
+      },
+      "post": {
+        "summary": "Create a new motorcycle",
+        "description": "Creates a new motorcycle in the database.",
+        "responses": {
+          "201": { "description": "Motorcycle created successfully." },
+          "400": { "description": "Invalid motorcycle data." },
+          "500": { "description": "Server error while creating motorcycle." }
+        }
+      }
+    },
+    "/motorcycles/{id}": {
+      "get": {
+        "summary": "Get a motorcycle by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Motorcycle found." },
+          "400": { "description": "Invalid id format." },
+          "404": { "description": "Motorcycle not found." },
+          "500": { "description": "Server error while getting motorcycle." }
+        }
+      },
+      "put": {
+        "summary": "Update a motorcycle by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Motorcycle updated successfully." },
+          "400": { "description": "Invalid id or motorcycle data." },
+          "404": { "description": "Motorcycle not found." },
+          "500": { "description": "Server error while updating motorcycle." }
+        }
+      },
+      "delete": {
+        "summary": "Delete a motorcycle by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Motorcycle deleted." },
+          "400": { "description": "Invalid id." },
+          "404": { "description": "Motorcycle not found." },
+          "500": { "description": "Server error while deleting motorcycle." }
+        }
+      }
+    }
+  }
+}
