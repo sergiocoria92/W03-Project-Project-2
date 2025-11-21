@@ -6,16 +6,15 @@
     "description": "Simple student Swagger for Cars and Motorcycles CRUD."
   },
   "servers": [
-  {
-    "url": "https://w03-project-project-2.onrender.com",
-    "description": "Render server"
-  },
-  {
-    "url": "http://localhost:3000",
-    "description": "Local server"
-  }
-  
-],
+    {
+      "url": "https://w03-project-project-2.onrender.com",
+      "description": "Render server"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server"
+    }
+  ],
   "paths": {
     "/cars": {
       "get": {
@@ -29,6 +28,29 @@
       "post": {
         "summary": "Create a new car",
         "description": "Creates a new car in the database.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Car"
+              },
+              "example": {
+                "make": "Honda",
+                "model": "Civic",
+                "year": 2018,
+                "color": "black",
+                "titleStatus": "clean",
+                "price": 15000,
+                "owners": 1,
+                "vin": "2HGFC2F59JH000000",
+                "mileage": 60000,
+                "transmission": "automatic",
+                "location": "Provo, UT"
+              }
+            }
+          }
+        },
         "responses": {
           "201": { "description": "Car created successfully." },
           "400": { "description": "Invalid car data." },
@@ -65,6 +87,29 @@
             "schema": { "type": "string" }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Car"
+              },
+              "example": {
+                "make": "Honda",
+                "model": "Civic",
+                "year": 2019,
+                "color": "white",
+                "titleStatus": "clean",
+                "price": 16000,
+                "owners": 1,
+                "vin": "2HGFC2F59JH000000",
+                "mileage": 50000,
+                "transmission": "automatic",
+                "location": "Provo, UT"
+              }
+            }
+          }
+        },
         "responses": {
           "200": { "description": "Car updated successfully." },
           "400": { "description": "Invalid id or car data." },
@@ -90,7 +135,6 @@
         }
       }
     },
-
     "/motorcycles": {
       "get": {
         "summary": "Get all motorcycles",
@@ -103,6 +147,24 @@
       "post": {
         "summary": "Create a new motorcycle",
         "description": "Creates a new motorcycle in the database.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Motorcycle"
+              },
+              "example": {
+                "brand": "Yamaha",
+                "model": "MT-07",
+                "year": 2021,
+                "engineCC": 689,
+                "price": 8500,
+                "isUsed": true
+              }
+            }
+          }
+        },
         "responses": {
           "201": { "description": "Motorcycle created successfully." },
           "400": { "description": "Invalid motorcycle data." },
@@ -138,6 +200,24 @@
             "schema": { "type": "string" }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Motorcycle"
+              },
+              "example": {
+                "brand": "Yamaha",
+                "model": "MT-07",
+                "year": 2022,
+                "engineCC": 689,
+                "price": 9000,
+                "isUsed": false
+              }
+            }
+          }
+        },
         "responses": {
           "200": { "description": "Motorcycle updated successfully." },
           "400": { "description": "Invalid id or motorcycle data." },
@@ -160,6 +240,39 @@
           "400": { "description": "Invalid id." },
           "404": { "description": "Motorcycle not found." },
           "500": { "description": "Server error while deleting motorcycle." }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Car": {
+        "type": "object",
+        "required": ["make", "model", "year", "price"],
+        "properties": {
+          "make": { "type": "string" },
+          "model": { "type": "string" },
+          "year": { "type": "number" },
+          "color": { "type": "string" },
+          "titleStatus": { "type": "string" },
+          "price": { "type": "number" },
+          "owners": { "type": "number" },
+          "vin": { "type": "string" },
+          "mileage": { "type": "number" },
+          "transmission": { "type": "string" },
+          "location": { "type": "string" }
+        }
+      },
+      "Motorcycle": {
+        "type": "object",
+        "required": ["brand", "model", "year", "engineCC", "price"],
+        "properties": {
+          "brand": { "type": "string" },
+          "model": { "type": "string" },
+          "year": { "type": "number" },
+          "engineCC": { "type": "number" },
+          "price": { "type": "number" },
+          "isUsed": { "type": "boolean" }
         }
       }
     }

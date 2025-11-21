@@ -1,9 +1,13 @@
 const { ObjectId } = require('mongodb');
 const { getDb } = require('../db/conn');
 
-
 function validateMotorcycle(data) {
   const errors = [];
+
+  if (!data || typeof data !== 'object') {
+    errors.push('Body must be a JSON object');
+    return errors;
+  }
 
   if (!data.brand || typeof data.brand !== 'string') {
     errors.push('brand is required and must be a string');
@@ -25,14 +29,12 @@ function validateMotorcycle(data) {
     errors.push('price is required and must be a number');
   }
 
-
   if (data.isUsed !== undefined && typeof data.isUsed !== 'boolean') {
     errors.push('isUsed must be boolean if provided');
   }
 
   return errors;
 }
-
 
 async function getAllMotorcycles(req, res) {
   try {
@@ -44,7 +46,6 @@ async function getAllMotorcycles(req, res) {
     res.status(500).json({ error: 'Error getting motorcycles' });
   }
 }
-
 
 async function getMotorcycleById(req, res) {
   try {
@@ -70,14 +71,12 @@ async function getMotorcycleById(req, res) {
   }
 }
 
-
 async function createMotorcycle(req, res) {
   try {
     const motoData = req.body;
     const errors = validateMotorcycle(motoData);
 
     if (errors.length > 0) {
-
       return res.status(400).json({ errors });
     }
 
@@ -93,7 +92,6 @@ async function createMotorcycle(req, res) {
     res.status(500).json({ error: 'Error creating motorcycle' });
   }
 }
-
 
 async function updateMotorcycle(req, res) {
   try {
@@ -125,7 +123,6 @@ async function updateMotorcycle(req, res) {
     res.status(500).json({ error: 'Error updating motorcycle' });
   }
 }
-
 
 async function deleteMotorcycle(req, res) {
   try {
