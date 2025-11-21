@@ -6,11 +6,15 @@
     "description": "Simple student Swagger for Cars and Motorcycles CRUD."
   },
   "servers": [
-    {
-      "url": "http://localhost:3000",
-      "description": "Local server"
-    }
-  ],
+  {
+    "url": "https://w03-project-project-2.onrender.com",
+    "description": "Render server"
+  },
+  {
+    "url": "http://localhost:3000",
+    "description": "Local server"
+  }
+],
   "paths": {
     "/cars": {
       "get": {
