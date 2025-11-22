@@ -61,7 +61,7 @@ function ensureAuthenticated(req, res, next) {
   }
   return res
     .status(401)
-    .json({ message: 'No autorizado. Inicia sesión con GitHub en /auth/github.' });
+    .json({ message: 'Unauthorized. Please log in with GitHub at /auth/github.' });
 }
 
 app.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
@@ -70,12 +70,12 @@ app.get(
   '/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/auth/failure' }),
   (req, res) => {
-    res.send('Login exitoso con GitHub. Ya puedes usar las rutas protegidas.');
+    res.send('Successful login with GitHub. You can now use the protected routes.');
   }
 );
 
 app.get('/auth/failure', (req, res) => {
-  res.status(401).send('Error al iniciar sesión con GitHub.');
+  res.status(401).send('Error logging in with GitHub.');
 });
 
 app.get('/logout', (req, res, next) => {
@@ -87,7 +87,7 @@ app.get('/logout', (req, res, next) => {
       if (error) {
         console.error('Error destroying session:', error);
       }
-      res.send('Logout exitoso. Tu sesión ha sido cerrada.');
+      res.send('Logout successful. Your session has been closed.');
     });
   });
 });
